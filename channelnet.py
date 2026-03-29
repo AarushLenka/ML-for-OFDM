@@ -98,8 +98,8 @@ class OFDM_Dataset(Dataset):
 def plot_results(loss_history, model, dataset, device):
     """
     Generates a figure with:
-      Left:   Training loss curve over all epochs
-      Right:  Heatmaps — Noisy Input / Model Output / Ground Truth / Error Map
+        Left:   Training loss curve over all epochs
+        Right:  Heatmaps — Noisy Input / Model Output / Ground Truth / Error Map
     Saves to channelnet_results.png and displays on screen.
     """
     fig = plt.figure(figsize=(18, 8))
@@ -187,10 +187,10 @@ def train_model():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"⚡ Executing Deep Learning Pipeline on: {device}")
     
-    print("🔄 Synthesizing OFDM Dataset (this takes ~1-2 min on CPU)...")
+    print("Synthesizing OFDM Dataset (this takes ~1-2 min on CPU)...")
     train_dataset = OFDM_Dataset(num_samples=2500, snr_db=15)
     train_loader  = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
-    print(f"✅ Dataset ready: {len(train_dataset)} samples\n")
+    print(f"Dataset ready: {len(train_dataset)} samples\n")
     
     model     = OFDM_ChannelNet().to(device)
     criterion = nn.MSELoss()
@@ -227,7 +227,7 @@ def train_model():
         bar     = '█' * filled + '░' * (bar_len - filled)
         print(f"Epoch {epoch+1:>3}/{EPOCHS}  [{bar}]  MSE: {avg_loss:.6f}  LR: {current_lr:.6f}")
             
-    print("\n✅ Training complete! Generating visualizations...")
+    print("\n Training complete! Generating visualizations...")
     plot_results(loss_history, model, train_dataset, device)
     
     return model
